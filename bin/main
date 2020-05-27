@@ -46,15 +46,22 @@ def playing_game(game,name_symbol)
       elsif !game.board.board[chosen-1].is_a? Integer        
         puts 'Chosen number is used before'     
       else
-        game.board.update_board(chosen,symbol)
+        game.board.update_board(chosen, symbol)
         break
       end
 
     end
     game.turn_counter += 1
+    # game.win
+    if !game.check_win.nil?
+      winner_symbol = game.check_win
+      # 
+    end
+    if game.turn_counter == 9 or !game.win
+      break
+    end
   end
 end
-
 
 def print_board
   puts '|' + ' 1 ' + '|' + ' 2 ' + '|' + ' 3 ' + '|'
