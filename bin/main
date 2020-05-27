@@ -1,2 +1,87 @@
 #!/usr/bin/env ruby
-puts 'Hello world!'
+
+def print_board
+  puts '|' + ' 1 ' + '|' + ' 2 ' + '|' + ' 3 ' + '|'
+  puts '|' + '___' + '|' + '___' + '|' + '___' + '|'
+  puts '|' + ' 4 ' + '|' + ' 5 ' + '|' + ' 6 ' + '|'
+  puts '|' + '___' + '|' + '___' + '|' + '___' + '|'
+  puts '|' + ' 7 ' + '|' + ' 8 ' + '|' + ' 9 ' + '|'
+  puts '|' + '   ' + '|' + '   ' + '|' + '   ' + '|'
+end
+
+puts 'Welcome to Tic Tac Toe!'
+print_board
+puts "Would you like to play a game of tic tac toe? Please enter 'yes' or 'no'" 
+play_game = gets.chomp
+if %w[yes no y n].include?(play_game) 
+  if play_game == "yes" or play_game == "y"
+    puts "We are going to start the game shortly after asking you a few more questions"
+  end
+  if play_game == "no" or play_game == "n"
+      puts "Hope to see you again. Bye."
+  end
+else
+  puts "Please enter 'yes' or 'no'" 
+  play_game = gets.chomp
+  while (['yes', 'no', 'y', 'n'].include?(play_game) == false) 
+    play_game = gets.chomp
+  end
+  if play_game == "yes" or play_game == "y"
+    puts "We are going to start the game shortly after asking you a few more questions"
+  end
+  if play_game == "no" or play_game == "n"
+      puts "Hope to see you again. Bye."
+  end
+end
+
+name_symbol= {}
+puts 'What is the name of first player'
+name_symbol[:first_player] = gets.chomp
+
+puts 'What is the name of second player'
+name_symbol[:second_player] = gets.chomp
+
+puts 'Choose symbol of first player'
+name_symbol[:first_symbol] = gets.chomp
+puts 'Choose symbol of second player'
+name_symbol[:second_symbol] = gets.chomp
+
+turn_number = 0
+winner = nil
+while true 
+  if turn_number%2 ==0 
+    player = 1
+  else 
+    player = 2
+  end
+
+  puts "#{player}. player turn"
+  print_board
+  puts 'Choose the number to play'
+  choose_number = gets.chomp
+
+  # Number is checked 
+  # If it is suitable, the number will be shown as selected on board 
+  # If not, it will be asked to choose another number
+  turn_number += 1
+
+  
+
+  # If turn number is greater than 5, it wil be checked whether there is any winner or not
+  unless winner == nil and turn_number < 9
+    
+    puts "winner #{winner}" if winner 
+    puts 'It is and of game because there is no number to play' unless turn_number < 9
+    puts 'Do you want to play one more time?'
+    one_more = gets.chomp
+    if 'y' == one_more[0].downcase
+      # reset board,winner and turn number
+    elsif 'n' == one_more[0].downcase
+      break
+    end
+  end
+end
+
+
+puts "Hope to see you again. Bye."
+
