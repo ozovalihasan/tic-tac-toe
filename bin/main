@@ -1,6 +1,60 @@
 #!/usr/bin/env ruby
-
 require_relative '../lib/game'
+
+def get_reply(response)
+  if 'y'  == response[0]
+    puts "We are going to start the game shortly after asking you a few more questions"
+    name_symbol = {}
+    puts 'What is the name of first player'
+    name_symbol[:first_player] = gets.chomp
+
+    puts 'What is the name of second player'
+    name_symbol[:second_player] = gets.chomp
+
+    puts 'Choose symbol of first player'
+    name_symbol[:first_symbol] = gets.chomp
+
+    puts 'Choose symbol of second player'
+    name_symbol[:second_symbol] = gets.chomp
+    game = Game.new (name_symbol)
+    playing_game(game,name_symbol)
+    # present results
+
+ 
+  elsif 'n' == response[0]
+      puts "Hope to see you again. Bye."
+  end
+  
+end
+
+def playing_game(game,name_symbol)
+  while true 
+    if game.turn_counter%2 == 0 
+      player = name_symbol[:first_player]
+      symbol = name_symbol[:first_symbol]
+    else 
+      player = name_symbol[:second_player]
+      symbol = name_symbol[:second_symbol]
+    end
+    puts "It is #{player}'s turn"
+    while true
+      game.board.print_board
+      puts 'Choose the number to play'
+      chosen = gets.chomp.to_i
+      if !(1..9).include?(chosen)
+        puts 'Please select another number between 1 and 9'          
+      elsif !game.board.board[chosen-1].is_a? Integer        
+        puts 'Chosen number is used before'     
+      else
+        game.board.update_board(chosen,symbol)
+        break
+      end
+
+    end
+    game.turn_counter += 1
+  end
+end
+
 
 def print_board
   puts '|' + ' 1 ' + '|' + ' 2 ' + '|' + ' 3 ' + '|'
@@ -11,48 +65,13 @@ def print_board
   puts '|' + '   ' + '|' + '   ' + '|' + '   ' + '|'
 end
 
+
 puts 'Welcome to Tic Tac Toe!'
 print_board
 puts "Would you like to play a game of tic tac toe? Please enter 'yes' or 'no'" 
-
-def get_reply(response)
-  if 'y'  == response[0]
-    puts "We are going to start the game shortly after asking you a few more questions"
-    name_symbol= {}
-    puts 'What is the name of first player'
-    name_symbol[:first_player] = gets.chomp
-
-    puts 'What is the name of second player'
-    name_symbol[:second_player] = gets.chomp
-
-    puts 'Choose symbol of first player'
-    name_symbol[:first_symbol] = gets.chomp
-    puts 'Choose symbol of second player'
-    name_symbol[:second_symbol] = gets.chomp
-
-    results = play(name_symbol)
-    # present results
-  end
-  if 'n' == response[0]
-      puts "Hope to see you again. Bye."
-  end
-end
-
-def play (name_symbol)
-  # Initiate the game 
-  game = Game.new (name_symbol)
-  game.get_results
-end
-
 play_game = gets.chomp.downcase
-if %w[yes no y n].include?(play_game) 
-  get_reply(play_game)
-else
+while (['yes', 'no', 'y', 'n'].include?(play_game) == false) 
   puts "Please enter 'yes' or 'no'" 
   play_game = gets.chomp.downcase
-  while (['yes', 'no', 'y', 'n'].include?(play_game) == false) 
-    play_game = gets.chomp.downcase
-  end
-  get_reply(play_game)
 end
-
+game = get_reply(play_game)

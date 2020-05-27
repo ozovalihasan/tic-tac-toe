@@ -2,18 +2,20 @@ require_relative './player.rb'
 require_relative './board.rb'
 
 class Game
+  attr_accessor :turn_counter,:board
   def initialize(name__symbol)
- 
-
     @first_player = Player.new(name__symbol[:first_player], name__symbol[:first_symbol])
     @second_player = Player.new(name__symbol[:second_player], name__symbol[:second_symbol])
-    @win = false
     @winner = false
+    @win = false
     @draw = false
-
-    @board = Board.new([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    play
+    @turn_counter = 0
+    @board = Board.new
+    # play
   end
+
+
+  
 
   def play
     while !@win or !@draw
@@ -57,14 +59,9 @@ class Game
     end
   end
 
-    def check_win
+  def check_win
 
-      
-    end
-
-    def check_draw
-
-    end
+  end
 
 
 end
