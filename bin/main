@@ -1,2 +1,43 @@
 #!/usr/bin/env ruby
-puts 'Hello world!'
+
+=begin Planning
+- Create a board to display to users
+- Get input from the users
+=end
+
+def print_board
+
+    puts '|'  + ' 1 ' + '|' + ' 2 ' + '|' + ' 3 ' + '|'
+    puts '|' + '___' + '|' + '___' + '|' + '___' + '|'
+    puts '|' + ' 4 ' + '|' + ' 5 ' + '|' + ' 6 ' + '|'
+    puts '|' + '___' + '|' + '___' + '|' + '___' + '|'
+    puts '|' +  ' 7 ' + '|' + ' 8 ' + '|' + ' 9 ' + '|'
+    puts '|' + '   ' + '|' + '   ' + '|' + '   ' + '|'
+
+end
+puts "Welcome to Tic Tac Toe!" 
+print_board
+puts "Would you like to play a game of tic tac toe? Please enter 'yes' or 'no'" 
+play_game = gets.chomp
+if['yes', 'no', 'y', 'n'].include?(play_game) 
+  if play_game == "yes" or play_game == "y"
+    puts "We are going to start the game shortly after asking you a few more questions"
+  end
+  if play_game == "no" or play_game == "n"
+      puts "Hope to see you again. Bye."
+  end
+else
+  puts "Please enter 'yes' or 'no'" 
+  play_game = gets.chomp
+  while (['yes', 'no', 'y', 'n'].include?(play_game) == false) 
+    play_game = gets.chomp
+  end
+  if play_game == "yes" or play_game == "y"
+    puts "We are going to start the game shortly after asking you a few more questions"
+  end
+  if play_game == "no" or play_game == "n"
+      puts "Hope to see you again. Bye."
+  end
+end
+    
+
