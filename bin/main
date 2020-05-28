@@ -3,102 +3,59 @@ require_relative '../lib/game'
 
 puts 'Welcome to Tic Tac Toe!'
 
-# rubocop:todo Metrics/PerceivedComplexity
-# rubocop:todo Metrics/MethodLength
-# rubocop:todo Metrics/AbcSize
-def play(player_info) # rubocop:todo Metrics/CyclomaticComplexity
-  game = Game.new
-  puts game.board.print_board
-  game.players
-  game.first_player.name = player_info[:first_player_name]
-  game.second_player.name = player_info[:second_player_name]
-  game.first_player.mark = player_info[:first_player_mark]
-  game.second_player.mark = player_info[:second_player_mark]
-
-  puts "The players are #{game.first_player.name}(#{game.first_player.mark}) and #{game.second_player.name}" \
-    "(#{game.second_player.mark})"
-
-  loop do
-    if game.turn_counter.even?
-      player = game.first_player.name
-      symbol = game.first_player.mark
-    else
-      player = game.second_player.name
-      symbol = game.second_player.mark
-    end
-    puts "It is #{player}'s turn"
-    loop do
-      puts game.board.print_board
-      puts 'Choose the number to play'
-      chosen = gets.chomp.to_i
-      if !(1..9).include?(chosen)
-        puts 'Please select another number between 1 and 9'
-      elsif !game.board.board[chosen - 1].is_a? Integer
-        puts 'Chosen number is used before'
-      else
-        game.board.update_board(chosen, symbol)
-        break
-      end
-    end
-    game.turn_increase
-    game.check_win
-    if game.winner and game.turn_counter > 4
-      puts "There is a WINNER: #{player}"
-      break
-    end
-    next unless game.turn_counter == 9
-
-    puts 'Draw'
-    break
+loop do
+  puts "Would you like to play a game of tic tac toe? Please enter '[y]es' or '[n]o'"
+  play_game = gets.chomp[0].downcase
+  while %w[y n].include?(play_game) == false
+    puts "Please enter '[y]es' or '[n]o'"
+    play_game = gets.chomp.downcase
   end
-end
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/PerceivedComplexity
+  if play_game[0] == 'y'
+    puts 'We are going to start the game shortly after asking you a few more questions'
+    game = Game.new
+    game.players
+    puts 'What is the name of first player'
+    game.first_player.name = gets.chomp.capitalize
+    puts 'What is the name of second player'
+    game.second_player.name = gets.chomp.capitalize
+    puts game.board.print_board
+    puts "The players are #{game.first_player.name}(#{game.first_player.mark}) and #{game.second_player.name}" \
+      "(#{game.second_player.mark})"
+    puts 'Do you want to change the symbols of players. If yes, push [y]'
+    chosen = gets.chomp.downcase
+    game.change_symbol if chosen[0] == 'y'
+    puts "The players are #{game.first_player.name}(#{game.first_player.mark}) and #{game.second_player.name}" \
+      "(#{game.second_player.mark})"
 
-# rubocop:todo Naming/AccessorMethodName
-# rubocop:todo Metrics/PerceivedComplexity
-# rubocop:todo Metrics/MethodLength
-def get_player_info
-  loop do # rubocop:todo Metrics/BlockLength
-    puts "Would you like to play a game of tic tac toe? Please enter '[y]es' or '[n]o'"
-    play_game = gets.chomp[0].downcase
-    while %w[y n].include?(play_game) == false
-      puts "Please enter '[y]es' or '[n]o'"
-      play_game = gets.chomp.downcase
-    end
-    if play_game[0] == 'y'
-      puts 'We are going to start the game shortly after asking you a few more questions'
-      player_info = {}
-      puts 'What is the name of first player'
-      player_info[:first_player_name] = gets.chomp.capitalize
-
-      puts 'What is the name of second player'
-      player_info[:second_player_name] = gets.chomp.capitalize
-      puts 'Choose symbol of first player. If enter is pressed, \'X\' will be used'
+    loop do
+      game.check_player
+      puts "It is #{game.current_user.keys[0]}'s turn"
       loop do
-        chosen_mark = gets.chomp[0].upcase
-        if !%w[X O].include?(chosen_mark)
-          puts 'Please select another symbol for the first player'
-        elsif chosen_mark.nil?
-          player_info[:first_player_mark] = 'X'
-          player_info[:second_player_mark] = '0'
-          break
+        puts game.board.print_board
+        puts 'Choose the number to play'
+        chosen = gets.chomp.to_i
+        if !(1..9).include?(chosen)
+          puts 'Please select another number between 1 and 9'
+        elsif !game.board.board[chosen - 1].is_a? Integer
+          puts 'Chosen number is used before'
         else
-          player_info[:first_player_mark] = chosen_mark
-          player_info[:second_player_mark] = %w[X O].reject { |mark| mark == player_info[:first_player_mark] }[0]
+          game.board.update_board(chosen, symbol)
           break
         end
       end
-      play(player_info)
-    elsif play_game[0] == 'n'
-      puts 'Hope to see you again. Bye.'
+      game.turn_increase
+      game.check_win
+      if game.winner and game.turn_counter > 4
+        puts "There is a WINNER: #{game.current_user.keys[0]}"
+        break
+      end
+      next unless game.turn_counter == 9
+
+      puts 'Draw'
       break
     end
+  elsif play_game[0] == 'n'
+    puts 'Hope to see you again. Bye.'
+    break
   end
 end
-# rubocop:enable Metrics/MethodLength
-# rubocop:enable Metrics/PerceivedComplexity
-# rubocop:enable Naming/AccessorMethodName
-
-get_player_info
