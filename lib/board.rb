@@ -11,7 +11,7 @@ class Board
     '|' + '___' + '|' + '___' + '|' + '___' + '| ' + "\n" \
     "| #{@board[6]} | #{@board[7]} | #{@board[8]} |\n" \
     '|' + '   ' + '|' + '   ' + '|' + '   ' + '|' + "\n"
-    board_string
+    
   end
 
   def update_board(chosen, symbol)
