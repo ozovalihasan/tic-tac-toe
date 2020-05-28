@@ -5,12 +5,12 @@ class Board
   end
 
   def print_board
-    puts "| #{@board[0]} | #{@board[1]} | #{@board[2]} |"
-    puts '|' + '___' + '|' + '___' + '|' + '___' + '|'
-    puts "| #{@board[3]} | #{@board[4]} | #{@board[5]} |"
-    puts '|' + '___' + '|' + '___' + '|' + '___' + '|'
-    puts "| #{@board[6]} | #{@board[7]} | #{@board[8]} |"
-    puts '|' + '   ' + '|' + '   ' + '|' + '   ' + '|'
+    board_string = "| #{@board[0]} | #{@board[1]} | #{@board[2]} | \n" \
+    '|' + '___' + '|' + '___' + '|' + '___' + '| ' + "\n" \
+    "| #{@board[3]} | #{@board[4]} | #{@board[5]} | \n" \
+    '|' + '___' + '|' + '___' + '|' + '___' + '| ' + "\n" \
+    "| #{@board[6]} | #{@board[7]} | #{@board[8]} |\n" \
+    '|' + '   ' + '|' + '   ' + '|' + '   ' + '|' + "\n"
   end
 
   def update_board(chosen, symbol)

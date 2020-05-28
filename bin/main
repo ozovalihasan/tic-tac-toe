@@ -8,7 +8,7 @@ puts 'Welcome to Tic Tac Toe!'
 # rubocop:todo Metrics/AbcSize
 def play(player_info) # rubocop:todo Metrics/CyclomaticComplexity
   game = Game.new
-  game.board.print_board
+  puts game.board.print_board
   game.players
   game.first_player.name = player_info[:first_player_name]
   game.second_player.name = player_info[:second_player_name]
@@ -28,7 +28,7 @@ def play(player_info) # rubocop:todo Metrics/CyclomaticComplexity
     end
     puts "It is #{player}'s turn"
     loop do
-      game.board.print_board
+      puts game.board.print_board
       puts 'Choose the number to play'
       chosen = gets.chomp.to_i
       if !(1..9).include?(chosen)
