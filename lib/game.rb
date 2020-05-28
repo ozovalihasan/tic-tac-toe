@@ -2,28 +2,25 @@ require_relative './player.rb'
 require_relative './board.rb'
 
 class Game
-  attr_accessor :turn_counter,:board, :win
-  def initialize(name__symbol)
-    @first_player = Player.new(name__symbol[:first_player], name__symbol[:first_symbol])
-    @second_player = Player.new(name__symbol[:second_player], name__symbol[:second_symbol])
-    @winner = false
-    @win = false
-    @draw = false
-    @turn_counter = 0
+  attr_accessor :board, :first_player, :second_player
+  attr_reader :turn_counter
+  def initialize
     @board = Board.new
+    @winner = false
+    @turn_counter = 0
   end
- 
-  # Add more methods in here for further abstraction
+  def players
+    @first_player = Player.new
+    @second_player = Player.new
+  end
+
   def check_win
-    symbol = @board.check_win
-    if !symbol.nil?
-      @win = true
+    if !@board.check_win.nil?
       @winner = true
     end
+  end
 
-
-
-    # call to determine and update the winner
-    
+  def turn_increase
+    @turn_counter += 1
   end
 end

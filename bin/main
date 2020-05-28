@@ -1,99 +1,94 @@
 #!/usr/bin/env ruby
 require_relative '../lib/game'
 
-def get_reply(response)
-  if 'y'  == response[0]
+puts 'Welcome to Tic Tac Toe!'
+game = Game.new()
+game.board.print_board
+
+while true
+  puts "Would you like to play a game of tic tac toe? Please enter '[y]es' or '[n]o'" 
+  play_game = gets.chomp[0].downcase
+  while (['y', 'n'].include?(play_game) == false) 
+    puts "Please enter '[y]es' or '[n]o'" 
+    play_game = gets.chomp.downcase
+  end
+  if 'y'  == play_game[0]
     puts "We are going to start the game shortly after asking you a few more questions"
-    name_symbol = {}
+    game.players
     puts 'What is the name of first player'
-    name_symbol[:first_player] = gets.chomp
+    game.first_player.name = gets.chomp.capitalize
 
     puts 'What is the name of second player'
-    name_symbol[:second_player] = gets.chomp
-
-    puts 'Choose symbol of first player'
-    name_symbol[:first_symbol] = gets.chomp
-
-    puts 'Choose symbol of second player'
-    name_symbol[:second_symbol] = gets.chomp
-    game = Game.new (name_symbol)
-    playing_game(game,name_symbol)
-
- 
-  elsif 'n' == response[0]
-      puts "Hope to see you again. Bye."
-  end
-  
-end
-
-def playing_game(game,name_symbol)
-  while true 
-    if game.turn_counter%2 == 0 
-      player = name_symbol[:first_player]
-      symbol = name_symbol[:first_symbol]
-    else 
-      player = name_symbol[:second_player]
-      symbol = name_symbol[:second_symbol]
-    end
-    puts "It is #{player}'s turn"
+    game.second_player.name = gets.chomp.capitalize
+    puts 'Choose symbol of second player. If enter is pressed, \'X\' will be used'    
     while true
-      game.board.print_board
-      puts 'Choose the number to play'
-      chosen = gets.chomp.to_i
-      if !(1..9).include?(chosen)
-        puts 'Please select another number between 1 and 9'          
-      elsif !game.board.board[chosen-1].is_a? Integer        
-        puts 'Chosen number is used before'     
+      chosen_mark = gets.chomp[0]
+      p chosen_mark
+      if (1..9).include?(chosen_mark.to_i)
+        puts 'Please select another symbol for the first player'            
+      elsif chosen_mark == nil
+        game.first_player.mark = 'X'
+        break
       else
-        game.board.update_board(chosen, symbol)
+        game.first_player.mark = chosen_mark
         break
       end
+    end 
 
+    puts 'Choose symbol of second player. If enter is pressed, \'O\' will be used'
+    while true
+      chosen_mark = gets.chomp[0]
+      if (1..9).include?(chosen_mark.to_i)  
+        puts 'Please select another symbol for the second player'            
+      elsif chosen_mark == game.first_player.mark
+        puts 'Please choose a different symbol from the first player\'s'
+      elsif chosen_mark == nil
+        game.second_player.mark = 'O'
+        break
+      else
+        game.second_player.mark = chosen_mark
+        break
+      end
+    end 
+
+    while true 
+      if game.turn_counter%2 == 0 
+        player = game.first_player.name
+        symbol = game.first_player.mark
+      else 
+        player = game.second_player.name
+        symbol = game.second_player.mark
+      end
+      puts "It is #{player}'s turn"
+      while true
+        game.board.print_board
+        puts 'Choose the number to play'
+        chosen = gets.chomp.to_i
+        if !(1..9).include?(chosen)
+          puts 'Please select another number between 1 and 9'          
+        elsif !game.board.board[chosen-1].is_a? Integer        
+          puts 'Chosen number is used before'     
+        else
+          game.board.update_board(chosen, symbol)
+          break
+        end
+      end
+      game.turn_increase
+      game.check_win
+      if game.winner and game.turn_counter > 4        
+        puts "There is a WINNER: #{player}"   
+        game = Game.new()
+        break
+      end
+      if game.turn_counter == 9
+        puts "Draw"
+        game = Game.new()
+        break        
+      end
     end
-    game.turn_counter += 1
-
-    game.check_win
-    if game.win
-      winner_symbol = game.check_win
-      puts "There is a WINNER: #{winner_symbol}" 
-
-
-    puts "Would you like to play a game of tic tac toe? Please enter 'yes' or 'no'" 
-    play_game = gets.chomp.downcase
-    while (['yes', 'no', 'y', 'n'].include?(play_game) == false) 
-      puts "Please enter 'yes' or 'no'" 
-      play_game = gets.chomp.downcase
-    end
-    game = get_reply(play_game)
-
+  elsif 'n' == play_game[0]
+      puts "Hope to see you again. Bye."
       break
-    end
-    if game.turn_counter == 9
-      puts "Draw"
-      break
-      
-    end
   end
+
 end
-
-def print_board
-  puts '|' + ' 1 ' + '|' + ' 2 ' + '|' + ' 3 ' + '|'
-  puts '|' + '___' + '|' + '___' + '|' + '___' + '|'
-  puts '|' + ' 4 ' + '|' + ' 5 ' + '|' + ' 6 ' + '|'
-  puts '|' + '___' + '|' + '___' + '|' + '___' + '|'
-  puts '|' + ' 7 ' + '|' + ' 8 ' + '|' + ' 9 ' + '|'
-  puts '|' + '   ' + '|' + '   ' + '|' + '   ' + '|'
-end
-
-
-puts 'Welcome to Tic Tac Toe!'
-print_board
-
-
-puts "Would you like to play a game of tic tac toe? Please enter 'yes' or 'no'" 
-play_game = gets.chomp.downcase
-while (['yes', 'no', 'y', 'n'].include?(play_game) == false) 
-  puts "Please enter 'yes' or 'no'" 
-  play_game = gets.chomp.downcase
-end
-game = get_reply(play_game)
