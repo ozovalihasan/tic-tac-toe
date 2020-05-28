@@ -15,14 +15,14 @@ class Board
 
 
   def update_board(chosen,symbol)
-    @board[chosen-1] = symbol
+    @board[chosen - 1] = symbol
   end
  
   def check_win
 
     grid = [
         [@board[0], @board[1], @board[2]],
-        [@board[3]], [@board[4], @board[5]],
+        [@board[3], @board[4], @board[5]],
         [@board[6], @board[7], @board[8]]
     ]
 
@@ -38,12 +38,14 @@ class Board
 
     # check the diagonals
     diagonals = [
-        [@board[0][0], @board[1][1], @board[2][2]],
-        [@board[0][2], @board[1][1], @board[2][0]]
+        [@board[0], @board[4], @board[8]],
+        [@board[2], @board[4], @board[6]]
     ]
-    if !check_rows(diagonals).nil?
-        return check_rows(diagonals)
+
+    if !check_diagonals(diagonals).nil?
+        return check_diagonals(diagonals)
     end
+
     return nil
   end
 
@@ -58,6 +60,11 @@ class Board
 
   def check_columns grid
     grid.transpose.each { |row| return row.first if all_equal?(row) }
+    return nil
+  end
+
+  def check_diagonals(diagonals) 
+    diagonals.each { |row| return row.first if all_equal?(row) } 
     return nil
   end
 

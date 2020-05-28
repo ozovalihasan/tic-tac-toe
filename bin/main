@@ -18,7 +18,6 @@ def get_reply(response)
     name_symbol[:second_symbol] = gets.chomp
     game = Game.new (name_symbol)
     playing_game(game,name_symbol)
-    # present results
 
  
   elsif 'n' == response[0]
@@ -52,13 +51,27 @@ def playing_game(game,name_symbol)
 
     end
     game.turn_counter += 1
-    # game.win
-    if !game.check_win.nil?
+
+    game.check_win
+    if game.win
       winner_symbol = game.check_win
-      # 
+      puts "There is a WINNER: #{winner_symbol}" 
+
+
+    puts "Would you like to play a game of tic tac toe? Please enter 'yes' or 'no'" 
+    play_game = gets.chomp.downcase
+    while (['yes', 'no', 'y', 'n'].include?(play_game) == false) 
+      puts "Please enter 'yes' or 'no'" 
+      play_game = gets.chomp.downcase
     end
-    if game.turn_counter == 9 or !game.win
+    game = get_reply(play_game)
+
       break
+    end
+    if game.turn_counter == 9
+      puts "Draw"
+      break
+      
     end
   end
 end
@@ -75,6 +88,8 @@ end
 
 puts 'Welcome to Tic Tac Toe!'
 print_board
+
+
 puts "Would you like to play a game of tic tac toe? Please enter 'yes' or 'no'" 
 play_game = gets.chomp.downcase
 while (['yes', 'no', 'y', 'n'].include?(play_game) == false) 
