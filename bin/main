@@ -3,7 +3,7 @@ require_relative '../lib/game'
 
 puts 'Welcome to Tic Tac Toe!'
 
-loop do
+loop do # rubocop:todo Metrics/BlockLength
   puts "Would you like to play a game of tic tac toe? Please enter '[y]es' or '[n]o'"
   play_game = gets.chomp[0].downcase
   while %w[y n].include?(play_game) == false

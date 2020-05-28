@@ -28,7 +28,7 @@ class Game
       player = game.second_player.name
       symbol = game.second_player.mark
     end
-    :current_user = {player => symbol} 
+    @current_user = { player => symbol }
   end
 
   def check_win
