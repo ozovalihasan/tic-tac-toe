@@ -21,12 +21,12 @@ class Game
   end
 
   def check_player
-    if game.turn_counter.even?
-      player = game.first_player.name
-      symbol = game.first_player.mark
+    if @turn_counter.even?
+      player = @first_player.name
+      symbol = @first_player.mark
     else
-      player = game.second_player.name
-      symbol = game.second_player.mark
+      player = @second_player.name
+      symbol = @second_player.mark
     end
     @current_user = { player => symbol }
   end

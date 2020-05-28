@@ -51,7 +51,6 @@ class Board
   end
 
   def check_columns(grid)
-    p grid
     check_rows(grid.transpose)
   end
 

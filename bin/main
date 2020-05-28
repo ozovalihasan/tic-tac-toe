@@ -39,7 +39,7 @@ loop do # rubocop:todo Metrics/BlockLength
         elsif !game.board.board[chosen - 1].is_a? Integer
           puts 'Chosen number is used before'
         else
-          game.board.update_board(chosen, symbol)
+          game.board.update_board(chosen, game.current_user.values[0])
           break
         end
       end
