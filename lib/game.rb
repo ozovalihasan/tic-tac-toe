@@ -2,7 +2,7 @@ require_relative './player.rb'
 require_relative './board.rb'
 
 class Game
-  attr_reader :turn_counter, :first_player, :second_player
+  attr_reader :turn_counter
   def initialize
     @board = Board.new
     @turn_counter = 0
@@ -49,5 +49,21 @@ class Game
 
   def turn_increase
     @turn_counter += 1
+  end
+
+  def player_info
+    "The players are #{@first_player.name}(#{@first_player.mark}) and #{@second_player.name}" \
+      "(#{@second_player.mark})"
+  end
+
+  def verify_update(chosen)
+    if !(1..9).include?(chosen)
+      'Please select another number between 1 and 9'
+    elsif !check_valid(chosen)
+      'Chosen number is used before'
+    else
+      update_board(chosen)
+      true
+    end
   end
 end

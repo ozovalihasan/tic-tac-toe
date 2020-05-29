@@ -14,21 +14,16 @@ loop do # rubocop:todo Metrics/BlockLength
     puts 'We are going to start the game shortly after asking you a few more questions'
     game = Game.new
     puts 'What is the name of first player'
-
     first_player = gets.chomp.capitalize
-
     puts 'What is the name of second player'
     second_player = gets.chomp.capitalize
     game.players(first_player, second_player)
     game.print_board
-    puts "The players are #{game.first_player.name}(#{game.first_player.mark}) and #{game.second_player.name}" \
-      "(#{game.second_player.mark})"
+    puts game.player_info
     puts 'Do you want to change the symbols of players. If yes, push [y]'
     chosen = gets.chomp.downcase
     game.change_symbol(first_player, second_player) if chosen[0] == 'y'
-    puts "The players are #{game.first_player.name}(#{game.first_player.mark}) and #{game.second_player.name}" \
-      "(#{game.second_player.mark})"
-
+    puts game.player_info
     loop do
       game.check_player
       puts "It is #{game.check_player.keys[0]}'s turn"
@@ -36,14 +31,9 @@ loop do # rubocop:todo Metrics/BlockLength
         puts game.print_board
         puts 'Choose the number to play'
         chosen = gets.chomp.to_i
-        if !(1..9).include?(chosen)
-          puts 'Please select another number between 1 and 9'
-        elsif !game.check_valid(chosen)
-          puts 'Chosen number is used before'
-        else
-          game.update_board(chosen)
-          break
-        end
+        break unless game.verify_update(chosen).is_a? String
+
+        puts game.verify_update(chosen)
       end
       winner = game.check_win
       if winner and game.turn_counter >= 4
