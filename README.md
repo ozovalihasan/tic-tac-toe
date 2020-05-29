@@ -1,4 +1,5 @@
-# tic_tac_toe
+# tic-tac-toe
+
 
 
 This is a project in the Main Ruby curriculum at [Microverse](https:www.microverse.org/) - @microverseinc.
@@ -30,6 +31,7 @@ main
 ## Live Demo
 
 [![Run on Repl.it](https://repl.it/badge/github/ozovalihasan/tic_tac_toe)](https://github.com/ozovalihasan/tic_tac_toe)
+
 
 ## Authors
 
