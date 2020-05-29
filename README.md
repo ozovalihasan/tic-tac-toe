@@ -30,7 +30,7 @@ main
 
 ## Live Demo
 
-[![Run on Repl.it](https://repl.it/badge/github/ozovalihasan/tic_tac_toe)](https://github.com/ozovalihasan/tic_tac_toe)
+[![Run on Repl.it](https://repl.it/badge/github/ozovalihasan/tic-tac-toe)](https://github.com/ozovalihasan/tic-tac-toe)
 
 
 ## Authors
