@@ -1,5 +1,5 @@
 class Player
-  attr_accessor :name, :mark
+  attr_reader :name, :mark
 
   def initialize(name = 'name', mark = 'mark')
     @name = name

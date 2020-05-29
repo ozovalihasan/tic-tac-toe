@@ -1,5 +1,5 @@
 class Board
-  attr_accessor :board
+  attr_reader :board
   def initialize
     @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
@@ -14,6 +14,10 @@ class Board
     board_string
   end
 
+  def check_valid(chosen)
+    @board[chosen - 1].is_a? Integer
+  end
+
   def update_board(chosen, symbol)
     @board[chosen - 1] = symbol
   end
@@ -25,6 +29,7 @@ class Board
       [@board[6], @board[7], @board[8]]
     ]
 
+    # check the rows
     return check_rows(grid) unless check_rows(grid).nil?
 
     # check the columns

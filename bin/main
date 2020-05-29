@@ -13,45 +13,47 @@ loop do # rubocop:todo Metrics/BlockLength
   if play_game[0] == 'y'
     puts 'We are going to start the game shortly after asking you a few more questions'
     game = Game.new
-    game.players
     puts 'What is the name of first player'
-    game.first_player.name = gets.chomp.capitalize
+
+    first_player = gets.chomp.capitalize
+
     puts 'What is the name of second player'
-    game.second_player.name = gets.chomp.capitalize
-    puts game.board.print_board
+    second_player = gets.chomp.capitalize
+    game.players(first_player, second_player)
+    game.print_board
     puts "The players are #{game.first_player.name}(#{game.first_player.mark}) and #{game.second_player.name}" \
       "(#{game.second_player.mark})"
     puts 'Do you want to change the symbols of players. If yes, push [y]'
     chosen = gets.chomp.downcase
-    game.change_symbol if chosen[0] == 'y'
+    game.change_symbol(first_player, second_player) if chosen[0] == 'y'
     puts "The players are #{game.first_player.name}(#{game.first_player.mark}) and #{game.second_player.name}" \
       "(#{game.second_player.mark})"
 
     loop do
       game.check_player
-      puts "It is #{game.current_user.keys[0]}'s turn"
+      puts "It is #{game.check_player.keys[0]}'s turn"
       loop do
-        puts game.board.print_board
+        puts game.print_board
         puts 'Choose the number to play'
         chosen = gets.chomp.to_i
         if !(1..9).include?(chosen)
           puts 'Please select another number between 1 and 9'
-        elsif !game.board.board[chosen - 1].is_a? Integer
+        elsif !game.check_valid(chosen)
           puts 'Chosen number is used before'
         else
-          game.board.update_board(chosen, game.current_user.values[0])
+          game.update_board(chosen)
           break
         end
       end
-      game.turn_increase
-      game.check_win
-      if game.winner and game.turn_counter > 4
-        puts "There is a WINNER: #{game.current_user.keys[0]}"
+      winner = game.check_win
+      if winner and game.turn_counter >= 4
+        puts "There is a WINNER: #{game.check_player.keys[0]}"
         break
       end
+      game.turn_increase
       next unless game.turn_counter == 9
 
-      puts 'Draw'
+      puts 'DRAW'
       break
     end
   elsif play_game[0] == 'n'

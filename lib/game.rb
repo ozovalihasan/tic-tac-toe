@@ -2,22 +2,33 @@ require_relative './player.rb'
 require_relative './board.rb'
 
 class Game
-  attr_accessor :board, :first_player, :second_player
-  attr_reader :turn_counter, :winner, :current_user
+  attr_reader :turn_counter, :first_player, :second_player
   def initialize
     @board = Board.new
-    @winner = false
     @turn_counter = 0
   end
 
-  def players
-    @first_player = Player.new('name', 'X')
-    @second_player = Player.new('name', 'O')
+  def players(first_player, second_player)
+    @first_player = Player.new(first_player, 'X')
+    @second_player = Player.new(second_player, 'O')
   end
 
-  def change_symbol
-    @first_player = Player.new('name', 'O')
-    @second_player = Player.new('name', 'X')
+  def change_symbol(first_player, second_player)
+    @first_player = Player.new(first_player, 'O')
+    @second_player = Player.new(second_player, 'X')
+  end
+
+  def update_board(chosen)
+    current_user = check_player
+    @board.update_board(chosen, current_user.values[0])
+  end
+
+  def print_board
+    @board.print_board
+  end
+
+  def check_valid(chosen)
+    @board.check_valid(chosen)
   end
 
   def check_player
@@ -28,11 +39,12 @@ class Game
       player = @second_player.name
       symbol = @second_player.mark
     end
-    @current_user = { player => symbol }
+    current_user = { player => symbol }
+    current_user
   end
 
   def check_win
-    @winner = true unless @board.check_win.nil?
+    true unless @board.check_win.nil?
   end
 
   def turn_increase
