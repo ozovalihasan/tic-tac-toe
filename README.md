@@ -21,11 +21,19 @@ This project is mainly about
 -  The [DRY rule](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
 
 ## How to Play the Game
+* Clone this github repo onto your local machine
+* In the terminal move to the home directory of this repo 
+* Type the following commands
 
-* In order to play the Tic Tac Toe game just run the execution script in the terminal by typing `main` and follow the prompt
-```
-main
-```
+  ```
+  cd bin 
+  ./main
+  ```
+* Alternatively, you can create an executable script `main` ([Read About How to Create an Executable Script](https://commandercoriander.net/blog/2013/02/16/making-a-ruby-script-executable/)) 
+ - In order to play the Tic Tac Toe game just run the executable script in the terminal by typing `main` and follow the prompt
+   ```
+   main
+   ```
 
 ## Live Demo
 
