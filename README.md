@@ -6,7 +6,7 @@ This is a project in the Main Ruby curriculum at [Microverse](https:www.microver
 
 # tic_tac_toe_game ([The Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop))
 
-![tic_tac_toe_game](./screenshot.png)
+![tic_tac_toe_game](./Screenshot.png)
 
 ## Built With
 
