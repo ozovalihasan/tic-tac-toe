@@ -2,7 +2,7 @@
 
 
 
-This is a project in the Main Ruby curriculum at [Microverse](https:www.microverse.org/) - @microverseinc.
+This is a project in the Main Ruby curriculum at [Microverse](https://www.microverse.org/) - @microverseinc .
 
 
 ![tic_tac_toe_game](./Screenshot.png)
@@ -34,6 +34,15 @@ This project is mainly about
    ```
    main
    ```
+
+## Rules of the Game
+
+- Players' names  can be entered at the beginning of the game
+- Players can choose 'X' or 'O' as a symbol
+- To win the game, three identical symbols must be next to each other vertically, horizontally, or diagonally. If there is a winner, the winner will be announced as "WINNER"
+- If no one has won by the end of ninth turn, the game will be ended as a "DRAW"
+
+For more information check [Wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe )
 
 ## Live Demo
 
