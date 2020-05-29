@@ -4,7 +4,6 @@
 
 This is a project in the Main Ruby curriculum at [Microverse](https:www.microverse.org/) - @microverseinc.
 
-# tic_tac_toe_game ([The Odin Project](https://www.theodinproject.com/courses/ruby-programming/lessons/oop))
 
 ![tic_tac_toe_game](./Screenshot.png)
 
@@ -30,7 +29,8 @@ main
 
 ## Live Demo
 
-[![Run on Repl.it](https://repl.it/badge/github/ozovalihasan/tic-tac-toe)](https://github.com/ozovalihasan/tic-tac-toe)
+
+[![Run on Repl.it](https://repl.it/badge/github/ozovalihasan/tic-tac-toe)](https://repl.it/github/ozovalihasan/tic-tac-toe)
 
 
 ## Authors
