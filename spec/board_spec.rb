@@ -4,7 +4,6 @@ describe Board do
   let(:new_board) {Board.new}
   let(:win_row) {[[1, 2, 3], ['X', 'X', 'X'], [7, 8, 9]]}
   let(:win_col) {[['X', 2, 3], ['X', 5, 6], ['X', 8, 9]]}
-  let(:win_diag) {[['X', 2, 3], []]}
   describe '#print_board' do
     it 'prints the game board' do
       expect(new_board.print_board).to eql ("| 1 | 2 | 3 | \n|___|___|___| \n| 4 | 5 | 6 | \n|___|___|___| \n| 7 | 8 | 9 |\n|   |   |   |\n")
