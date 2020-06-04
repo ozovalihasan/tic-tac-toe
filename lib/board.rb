@@ -35,7 +35,7 @@ class Board
     return check_columns(grid) unless check_columns(grid).nil?
 
     # check the diagonals
-    return check_diagonals(@board) unless check_diagonals(@board).nil?
+    return check_diagonals(grid) unless check_diagonals(grid).nil?
 
     nil
   end
@@ -55,8 +55,8 @@ class Board
 
   def check_diagonals(grid)
     diagonals = [
-      [grid[0], grid[4], grid[8]],
-      [grid[2], grid[4], grid[6]]
+      [grid[0][0], grid[1][1], grid[2][2]],
+      [grid[2][0], grid[1][1], grid[2][0]]
     ]
     check_rows(diagonals)
   end
