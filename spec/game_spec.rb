@@ -39,25 +39,42 @@ describe Game do
   end
 
   describe '#check_valid' do
-    it 'checks the value of board in given position to be integer.' do
-      expect(new_game.check_valid(3)).to eql true
+    it 'returns true if the value of board in given position is an integer.' do
+      expect(new_game.check_valid(9)).to eql true
+    end
+
+    it 'returns false if the value of board in given position is not an integer' do
+      new_game.players('Hasan', 'Thapa')
+      new_game.update_board(4)
+      expect(new_game.check_valid(4)).to eql false
     end
   end
 
   describe '#check_player' do
-    it 'returns current player name and symbol ' do
+    it 'returns first player name and symbol if turn number is even' do
       new_game.players('Hasan', 'Thapa')
       expect(new_game.check_player).to eql({ 'Hasan' => 'X' })
+    end
+
+    it 'returns second player name and symbol if turn number is odd' do
+      new_game.players('Hasan', 'Thapa')
+      new_game.turn_increase
+      expect(new_game.check_player).to eql({ 'Thapa' => 'O' })
     end
   end
 
   describe '#check_win' do
-    it 'checks whether there is a winner ' do
+    it 'returns true if any winning condition is satisfied ' do
       new_game.players('Hasan', 'Thapa')
       new_game.update_board(2)
       new_game.update_board(5)
       new_game.update_board(8)
       expect(new_game.check_win).to eql true
+    end
+
+    it 'returns nil if any winning condition is not satisfied.' do
+      new_game.players('Hasan', 'Thapa')
+      expect(new_game.check_win).to eql nil
     end
   end
 
@@ -77,21 +94,24 @@ describe Game do
   end
 
   describe '#verify_update' do
-    it 'returns a string saying that select another number between 1 and 9 if given number is not between 1 and 9' do
-      new_game.players('Hasan', 'Thapa')
-      expect(new_game.verify_update(10)). to eql('Please select another number between 1 and 9')
+    context 'if given number is not between 1 and 9' do
+      it 'returns a string saying that select another number between 1 and 9 ' do
+        new_game.players('Hasan', 'Thapa')
+        expect(new_game.verify_update(10)). to eql('Please select another number between 1 and 9')
+      end
     end
+    context 'if given number is between 1 and 9' do
+      it 'returns a string warning about given number is used before if given number used before ' do
+        new_game.players('Hasan', 'Thapa')
+        new_game.verify_update(3)
+        expect(new_game.verify_update(3)). to eql('Chosen number is used before')
+      end
 
-    it 'returns a string warning about given number is used before if given number used before ' do
-      new_game.players('Hasan', 'Thapa')
-      new_game.verify_update(3)
-      expect(new_game.verify_update(3)). to eql('Chosen number is used before')
-    end
-
-    it "returns true and updates board if given number doesn't cause any problem" do
-      new_game.players('Hasan', 'Thapa')
-      expect(new_game.verify_update(3)). to eql true
-      expect(new_game.instance_variable_get(:@board).instance_variable_get(:@board)).to eql([1, 2, 'X', 4, 5, 6, 7, 8, 9])
+      it "returns true and updates board if given number doesn't cause any problem" do
+        new_game.players('Hasan', 'Thapa')
+        expect(new_game.verify_update(3)). to eql true
+        expect(new_game.instance_variable_get(:@board).instance_variable_get(:@board)).to eql([1, 2, 'X', 4, 5, 6, 7, 8, 9])
+      end
     end
   end
 end

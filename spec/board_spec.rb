@@ -72,14 +72,14 @@ describe Board do
   end
 
   describe '#check_win' do
-    it 'returns nil if any winning condition is not satisfied.' do
-      expect(new_board.check_win).to eql nil
-    end
     it 'returns the symbol  of winner if any winning condition is satisfied ' do
       new_board.update_board(2, 'X')
       new_board.update_board(5, 'X')
       new_board.update_board(8, 'X')
       expect(new_board.check_win).to eql('X')
+    end
+    it 'returns nil if any winning condition is not satisfied.' do
+      expect(new_board.check_win).to eql nil
     end
   end
 end
