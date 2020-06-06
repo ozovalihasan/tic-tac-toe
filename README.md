@@ -10,6 +10,7 @@ This is a project in the Main Ruby curriculum at [Microverse](https://www.microv
 ## Built With
 
 - Ruby
+- Rspec
 
 ## Description
 
@@ -49,6 +50,13 @@ For more information check [Wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe
 
 [![Run on Repl.it](https://repl.it/badge/github/ozovalihasan/tic-tac-toe)](https://repl.it/github/ozovalihasan/tic-tac-toe)
 
+## Testing
+To test the project
+1. Navigate to the directory where the project is located.
+2. Open terminal in this directory.
+3. Install RSpec by using `gem install rspec` command.
+4. Start testing by using `rspec` command.
+
 
 ## Authors
 
@@ -63,6 +71,12 @@ For more information check [Wikipedia](https://en.wikipedia.org/wiki/Tic-tac-toe
 - Twitter: [@ozovalihasan](https://twitter.com/ozovalihasan)
 - Linkedin: [Hasan Özovalı](https://www.linkedin.com/in/hasan-ozovali/)
 - Mail: [ozovalihasan@gmail.com](ozovalihasan@gmail.com) 
+
+👤 **Prajwal Thapa** 
+    
+- LinkedIn: [Prazwal Thapa](www.linkedin.com/in/prazwal-thapa/) 
+- GitHub: [@praz99](https://github.com/praz99)
+- E-mail: t.prazwal@gmail.com
 
 ## 📝 License
 
